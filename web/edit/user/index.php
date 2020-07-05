@@ -81,6 +81,11 @@ if (!empty($_POST['save'])) {
         header('location: /login/');
         exit();
     }
+    
+    // Check password length
+    if ((!empty($_POST['v_password'])) && (strlen($_POST['v_password']) < 6) && (empty($_SESSION['error_msg']))) {
+      $_SESSION['error_msg'] = __('Password is too short.');
+    }
 
     // Change password
     if ((!empty($_POST['v_password'])) && (empty($_SESSION['error_msg']))) {
