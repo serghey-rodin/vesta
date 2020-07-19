@@ -990,7 +990,7 @@ input[type="checkbox"] {
 .l-stat__col--active .l-stat__col-title {
   color: #ff6701;
   font-size: 24px;
-  margin-top: -7px;
+  margin-top: -5px;
   letter-spacing: -1px;
   margin-right: -8px;
 }
