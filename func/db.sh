@@ -205,12 +205,16 @@ add_mysql_database() {
     query="CREATE DATABASE \`$database\` CHARACTER SET $charset"
     mysql_query "$query" > /dev/null
 
-    query="GRANT ALL ON \`$database\`.* TO \`$dbuser\`@\`%\`
-        IDENTIFIED BY '$dbpass'"
+    query="CREATE USER \`$dbuser\`@\`%\` IDENTIFIED BY '$dbpass'"
     mysql_query "$query" > /dev/null
 
-    query="GRANT ALL ON \`$database\`.* TO \`$dbuser\`@localhost
-        IDENTIFIED BY '$dbpass'"
+    query="GRANT ALL PRIVILEGES ON \`$database\`.* TO \`$dbuser\`@\`%\` WITH GRANT OPTION"
+    mysql_query "$query" > /dev/null
+
+    query="CREATE USER \`$dbuser\`@\`localhost\` IDENTIFIED BY '$dbpass'"
+    mysql_query "$query" > /dev/null
+    
+    query="GRANT ALL PRIVILEGES ON \`$database\`.* TO \`$dbuser\`@\`localhost\` WITH GRANT OPTION"
     mysql_query "$query" > /dev/null
 
     if [ "$(echo $mysql_ver |cut -d '.' -f2)" -ge 7 ]; then
