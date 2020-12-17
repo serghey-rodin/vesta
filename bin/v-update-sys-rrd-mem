@@ -61,13 +61,13 @@ fi
 # Parsing data
 if [ "$period" = 'daily' ]; then
     mem=$(free -m)
-    used=$(echo "$mem" |grep Mem |awk '{print $3}')
+    used=$(echo "$mem" |awk '(NR == 2)' |awk '{print $3}')
     if [ -z "$(echo "$mem" | grep available)" ]; then
-        free=$(echo "$mem" |grep buffers/cache |awk '{print $4}')
+        free=$(echo "$mem" |grep buff/cache |awk '{print $4}')
     else
-        free=$(echo "$mem" |grep Mem |awk '{print $7}')
+        free=$(echo "$mem" |awk '(NR == 2)' |awk '{print $7}')
     fi
-    swap=$(echo "$mem" |grep Swap |awk '{print $3}')
+    swap=$(echo "$mem" |awk '(NR == 3)' |awk '{print $3}')
 
     # Updating rrd
     rrdtool update $RRD/mem/mem.rrd N:$used:$swap:$free
