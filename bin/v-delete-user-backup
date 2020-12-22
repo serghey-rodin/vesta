@@ -17,6 +17,22 @@ backup=$(echo $2| cut -f 2 -d \.)
 source $VESTA/func/main.sh
 source $VESTA/conf/vesta.conf
 
+backblazeb2_delete() {
+    # Defining backblaze settings
+    source $VESTA/conf/b2.backup.conf
+    b2util=$(which b2)
+    # Recreate backblaze auth file ~/.b2_account_info (for situation when key was changed in b2.backup.conf)
+    $b2util clear-account > /dev/null 2>&1
+    $b2util authorize-account $B2_KEYID $B2_KEY > /dev/null 2>&1
+    
+    # Define file id in b2 by backup file name
+    backup_file_id=$(${b2util} ls --long $BUCKET $user | grep "$backup" | cut -f 1 -d ' ' 2>/dev/null)
+    # Deleting file in b2
+    ${b2util} delete-file-version $backup_file_id > /dev/null 2>&1
+    if [ "$?" -ne 0 ]; then
+        check_result "$E_CONNECT" "b2 failed to delete $1"
+    fi
+}
 
 #----------------------------------------------------------#
 #                    Verifications                         #
@@ -33,8 +49,16 @@ is_object_valid 'backup' 'BACKUP' "$2"
 #                       Action                             #
 #----------------------------------------------------------#
 
-# Deleting backup
-rm -f $BACKUP/$2
+# Delete local/remote backups
+if [ ! -e "$BACKUP/$backup" ]; then
+   if [[ "$BACKUP_SYSTEM" =~ "b2" ]]; then
+         backblazeb2_delete $2
+   fi
+   if [[ "$BACKUP_SYSTEM" =~ "local" ]]; then
+         rm -f $BACKUP/$2
+   fi
+fi
+
 sed -i "/BACKUP='$2' /d" $USER_DATA/backup.conf
 
 
