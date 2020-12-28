@@ -47,4 +47,4 @@ sed -i "/HOST='$host' /d" $VESTA/conf/$type.conf
 log_history "deleted $type database server $host" '' 'admin'
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

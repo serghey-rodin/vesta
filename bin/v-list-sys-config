@@ -12,6 +12,8 @@
 # Argument definition
 format=${1-shell}
 
+# Includes
+source $VESTA/func/main.sh
 source $VESTA/conf/vesta.conf
 
 # JSON list function
@@ -208,4 +210,4 @@ esac
 #                       Vesta                              #
 #----------------------------------------------------------#
 
-exit
+run_hook $@

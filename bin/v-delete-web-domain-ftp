@@ -85,4 +85,4 @@ update_object_value 'web' 'DOMAIN' "$domain" '$FTP_PATH' "$ftp_path"
 log_history "deleted ftp account ${3} for $domain"
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

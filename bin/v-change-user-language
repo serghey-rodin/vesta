@@ -63,4 +63,4 @@ fi
 log_history "changed language to $language"
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

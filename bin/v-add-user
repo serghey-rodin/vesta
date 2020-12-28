@@ -212,4 +212,4 @@ fi
 log_history "added system user $user" '' 'admin'
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

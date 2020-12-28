@@ -7,6 +7,10 @@
 user=$1
 path=$2
 
+# Includes
+source $VESTA/func/main.sh
+source $VESTA/conf/vesta.conf
+
 # Checking arguments
 if [ -z "$path" ]; then
     echo "Usage: USER FILE"
@@ -38,3 +42,4 @@ sudo -u $user file -i -b "$path" 2>/dev/null
 
 # Exiting
 exit $?
+run_hook $@

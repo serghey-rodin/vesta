@@ -74,4 +74,4 @@ update_object_value "mail/$domain" 'ACCOUNT' "$account"  '$FWD' "$fwd"
 log_history "deleted $forward forward on $account@$domain"
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

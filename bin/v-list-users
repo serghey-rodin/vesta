@@ -84,6 +84,10 @@ json_list() {
     echo '}'
 }
 
+# Includes
+source $VESTA/func/main.sh
+source $VESTA/conf/vesta.conf
+
 # SHELL list function
 shell_list() {
     echo "USER   PKG   WEB   DNS   MAIL   DB   DISK   BW   SPND   DATE"
@@ -185,4 +189,4 @@ esac
 #                       Vesta                              #
 #----------------------------------------------------------#
 
-exit
+run_hook $@

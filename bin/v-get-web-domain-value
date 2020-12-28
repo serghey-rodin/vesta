@@ -13,7 +13,7 @@
 
 # Say goodbye
 echo "This script is not used anymore"
-exit
+run_hook $@
 
 # Argument definition
 user=$1
@@ -50,4 +50,4 @@ eval echo $key
 #                       Vesta                              #
 #----------------------------------------------------------#
 
-exit
+run_hook $@

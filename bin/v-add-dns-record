@@ -131,4 +131,4 @@ check_result $? $E_RESTART 'dns failed to restart'
 log_history "added $rtype dns record $record for $domain"
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

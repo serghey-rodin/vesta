@@ -85,4 +85,4 @@ decrease_user_value "$user" '$U_MAIL_ACCOUNTS' "$accounts"
 log_history "deleted mail domain $domain"
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

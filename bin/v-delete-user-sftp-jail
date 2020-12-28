@@ -60,4 +60,4 @@ gpasswd -d $user sftp-only >/dev/null 2>&1
 # Logging
 #log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

@@ -71,4 +71,4 @@ update_object_value "mail/$domain" 'ACCOUNT' "$account"  '$ALIAS' "$aliases"
 log_history "added alias $malias to $account@$domain "
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

@@ -77,4 +77,4 @@ update_object_value "mail/$domain" 'ACCOUNT' "$account"  '$FWD_ONLY' "yes"
 log_history "added fwd_only flag for $account@$domain"
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

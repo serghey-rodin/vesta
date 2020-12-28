@@ -9,6 +9,10 @@ user=$1
 src_dir=$2
 dst_dir=$3
 
+# Includes
+source $VESTA/func/main.sh
+source $VESTA/conf/vesta.conf
+
 # Checking arguments
 if [ -z "$dst_dir" ]; then
     echo "Usage: USER SRC_DIRECTORY DST_DIRECTORY"
@@ -56,4 +60,4 @@ if [ $? -ne 0 ]; then
 fi
 
 # Exiting
-exit
+run_hook $@

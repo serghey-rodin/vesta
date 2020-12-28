@@ -63,7 +63,7 @@ if (!empty($_POST['ok'])) {
 
     // Set ttl
     if (empty($_SESSION['error_msg'])) {
-        if ((!empty($_POST['v_ttl'])) && ($_POST['v_ttl'] != '14400') && (empty($_SESSION['error_msg']))) {
+        if ((!empty($_POST['v_ttl'])) && ($_POST['v_ttl'] != '300') && (empty($_SESSION['error_msg']))) {
             $v_ttl = escapeshellarg($_POST['v_ttl']);
             exec (VESTA_CMD."v-change-dns-domain-ttl ".$user." ".$v_domain." ".$v_ttl." no", $output, $return_var);
             check_return_code($return_var,$output);
@@ -150,7 +150,7 @@ $v_ns8 = str_replace("'", "", $v_ns8);
 if (empty($_GET['domain'])) {
     // Display body for dns domain
 
-    if (empty($v_ttl)) $v_ttl = 14400;
+    if (empty($v_ttl)) $v_ttl = 300;
     if (empty($v_exp)) $v_exp = date('Y-m-d', strtotime('+1 year'));
     if (empty($v_ns1)) {
         exec (VESTA_CMD."v-list-user-ns ".$user." json", $output, $return_var);

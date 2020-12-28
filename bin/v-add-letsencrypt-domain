@@ -292,4 +292,4 @@ send_notice 'LETSENCRYPT' "$domain SSL has been installed successfully"
 # Logging
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

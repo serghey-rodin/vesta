@@ -44,4 +44,4 @@ update_object_value "../../conf/$type" 'HOST' "$host" '$SUSPENDED' 'yes'
 # Logging
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

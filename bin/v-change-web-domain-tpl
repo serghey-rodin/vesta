@@ -80,4 +80,4 @@ check_result $? "Web restart failed" >/dev/null
 log_history "changed web domain template for $domain to $template" '' 'admin'
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

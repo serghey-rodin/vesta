@@ -180,4 +180,4 @@ fi
 log_history "changed $user package to $package" '' 'admin'
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

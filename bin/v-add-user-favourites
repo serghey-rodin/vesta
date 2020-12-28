@@ -122,4 +122,4 @@ chmod 640 $USER_DATA/favourites.conf
 log_history "added starred $object in $system listing"
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

@@ -100,4 +100,4 @@ check_result $? "Proxy restart failed" >/dev/null
 log_history "added $aliases for $domain"
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

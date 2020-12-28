@@ -34,4 +34,4 @@ sed -i "/VESTA_CERTIFICATE=/ d" $VESTA/conf/vesta.conf
 # Logging
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

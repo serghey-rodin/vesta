@@ -95,4 +95,4 @@ $BIN/v-rebuild-web-domains $user $restart
 log_history "changed web domain name $old_domain to $new_domain"
 log_event "$OK" "$EVENT"
 
-exit
+run_hook $@

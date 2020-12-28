@@ -68,4 +68,4 @@ sed -i "s/SUSPENDED='yes'/SUSPENDED='no'/g" $USER_DATA/dns/$domain.conf
 # Logging
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

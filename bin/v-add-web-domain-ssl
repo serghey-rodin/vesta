@@ -153,4 +153,4 @@ fi
 log_history "enabled ssl support for $domain"
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

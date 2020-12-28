@@ -71,4 +71,4 @@ update_object_value 'web' 'DOMAIN' "$domain" '$STATS' ''
 log_history "disabled web log analyzer for $domain"
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

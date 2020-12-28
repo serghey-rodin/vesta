@@ -82,4 +82,4 @@ fi
 
 # No logging
 
-exit
+run_hook $@

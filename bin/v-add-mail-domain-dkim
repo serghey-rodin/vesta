@@ -89,4 +89,4 @@ increase_user_value "$user" '$U_MAIL_DKIM'
 log_history "enabled DKIM support for $domain"
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

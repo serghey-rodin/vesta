@@ -73,4 +73,4 @@ update_object_value 'mail' 'DOMAIN' "$domain" '$ACCOUNTS' "$accounts"
 log_history "deleted $account@$domain mail account"
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

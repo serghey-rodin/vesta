@@ -62,4 +62,4 @@ decrease_user_value "$user" '$U_DATABASES'
 log_history "deleted $database database"
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

@@ -60,4 +60,4 @@ update_object_value 'mail' 'DOMAIN' "$domain" '$ANTIVIRUS' 'no'
 log_history "disabled antivirus support on $domain"
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

@@ -45,4 +45,4 @@ sed -i "s/SOFTACULOUS.*/SOFTACULOUS='no'/g" \
 # Logging
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

@@ -123,4 +123,4 @@ update_object_value 'web' 'DOMAIN' "$domain" '$FTP_PATH' "$ftp_path"
 log_history "added ftp account ${1}_${3}@$domain"
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

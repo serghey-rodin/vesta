@@ -50,3 +50,4 @@ get_object_value 'dns' 'DOMAIN' "$domain" "$key"
 log_event "$OK" "$ARGUMENTS"
 
 exit 
+run_hook $@

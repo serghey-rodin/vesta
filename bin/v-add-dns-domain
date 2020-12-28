@@ -6,7 +6,7 @@
 # argument isn't stated, the expiration date value will be set to next year.
 # The soa argument is responsible for the relevant record. By default the first
 # user's NS server is used. TTL is set as common for the zone and for all of
-# its records with a default value of 14400 seconds.
+# its records with a default value of 300 seconds.
 
 
 #----------------------------------------------------------#
@@ -101,7 +101,7 @@ fi
 soa="$ns1"
 exp=$(date +%F -d "+ 1 year")
 serial=$(date +'%Y%m%d01')
-ttl=14400
+ttl=300
 
 # Reading template
 template_data=$(cat $DNSTPL/$template.tpl)
@@ -204,4 +204,4 @@ check_result $? "DNS restart failed"
 log_history "added dns domain $domain"
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

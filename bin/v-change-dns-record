@@ -113,4 +113,4 @@ check_result $? "DNS restart failed" >/dev/null
 log_history "changed dns record on $domain to $dvalue"
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

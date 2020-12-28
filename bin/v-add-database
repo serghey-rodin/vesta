@@ -86,4 +86,4 @@ increase_user_value "$user" '$U_DATABASES'
 log_history "added $type database $database"
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

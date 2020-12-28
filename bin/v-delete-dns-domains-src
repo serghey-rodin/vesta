@@ -50,4 +50,4 @@ check_result $? "Bind restart failed" >/dev/null
 # Logging
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

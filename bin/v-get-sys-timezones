@@ -450,7 +450,7 @@ fi
 
 echo $TZ
 
-exit
+run_hook $@
 # Defining config
 echo -e "$str" > $tmp_file
 conf=$tmp_file
@@ -473,4 +473,4 @@ rm -f $tmp_file
 #                       Vesta                              #
 #----------------------------------------------------------#
 
-exit
+run_hook $@

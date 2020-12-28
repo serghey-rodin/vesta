@@ -52,4 +52,4 @@ rebuild_user_conf
 # Logging
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

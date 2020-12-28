@@ -67,4 +67,4 @@ update_object_value "mail/$domain" 'ACCOUNT' "$account"  '$AUTOREPLY' 'no'
 log_history "$ARGUMENTS"
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

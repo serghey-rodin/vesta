@@ -8,6 +8,10 @@ user=$1
 src_file=$2
 dst_file=$3
 
+# Includes
+source $VESTA/func/main.sh
+source $VESTA/conf/vesta.conf
+
 # Checking arguments
 if [ -z "$dst_file" ]; then
     echo "Usage: USER SRC_FILE DST_FILE"
@@ -55,4 +59,4 @@ if [ $? -ne 0 ]; then
 fi
 
 # Exiting
-exit
+run_hook $@

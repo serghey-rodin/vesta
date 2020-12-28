@@ -92,4 +92,4 @@ update_object_value 'mail' 'DOMAIN' "$domain" '$ACCOUNTS' "$accounts"
 log_history "added mail account $account@$domain"
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

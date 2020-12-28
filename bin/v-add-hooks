@@ -1,0 +1,15 @@
+#!/bin/bash
+# info: add hooks to all existing api calls
+# options: none
+#
+# The function adds a conditional call to /usr/local/vesta/hooks/API_CALL.
+
+
+source $VESTA/func/main.sh
+
+for i in $VESTA/bin/*
+do
+        $VESTA/bin/v-add-hook $i
+done
+
+

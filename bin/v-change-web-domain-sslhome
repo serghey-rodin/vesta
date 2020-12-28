@@ -82,4 +82,4 @@ check_result $? "Proxy restart failed" >/dev/null
 log_history "changed ssl home for $domain to $ssl_home"
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

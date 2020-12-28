@@ -67,4 +67,4 @@ decrease_user_value "$user" '$U_MAIL_DKIM'
 log_history "disabled DKIM support on $domain"
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

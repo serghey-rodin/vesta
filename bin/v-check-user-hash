@@ -97,4 +97,4 @@ fi
 # Logging
 echo "$date $time $user $ip successfully logged in" >> $VESTA/log/auth.log
 
-exit
+run_hook $@

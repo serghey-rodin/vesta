@@ -83,4 +83,4 @@ check_result $? "can't restart dns" > /dev/null
 #                       Vesta                              #
 #----------------------------------------------------------#
 
-exit
+run_hook $@

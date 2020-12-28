@@ -105,4 +105,4 @@ log_event "$OK" "$ARGUMENTS"
 # Build stats
 exec $BIN/v-update-web-domain-stat $user $domain
 
-exit
+run_hook $@

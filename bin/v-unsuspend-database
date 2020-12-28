@@ -56,4 +56,4 @@ decrease_user_value "$user" '$SUSPENDED_DB'
 # Logging
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

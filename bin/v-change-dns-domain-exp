@@ -65,4 +65,4 @@ fi
 log_history "changed whois expiration date for $domain"
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

@@ -86,4 +86,4 @@ update_object_value 'web' 'DOMAIN' "$domain" '$U_BANDWIDTH' "$bandwidth"
 # Logging
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

@@ -45,4 +45,4 @@ update_ip_value '$NAME' "$ip_name"
 log_history "changed associated dns on $ip to $ip_name" '' 'admin'
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

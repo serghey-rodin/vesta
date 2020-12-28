@@ -112,4 +112,4 @@ update_object_value 'web' 'DOMAIN' "$domain" '$AUTH_HASH' "$auth_hash"
 log_history "added http auth user $httpauth_user on $domain"
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

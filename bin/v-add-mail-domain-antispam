@@ -60,4 +60,4 @@ update_object_value 'mail' 'DOMAIN' "$domain" '$ANTISPAM' 'yes'
 log_history "enabled antispam on $domain"
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

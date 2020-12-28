@@ -60,4 +60,4 @@ update_object_value 'mail' 'DOMAIN' "$domain" '$CATCHALL' "$email"
 log_history "changed catchall email for $domain to $email"
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

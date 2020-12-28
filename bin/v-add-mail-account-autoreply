@@ -76,4 +76,4 @@ update_object_value "mail/$domain" 'ACCOUNT' "$account" '$AUTOREPLY' 'yes'
 log_history "added autoreply message on $account@$domain"
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

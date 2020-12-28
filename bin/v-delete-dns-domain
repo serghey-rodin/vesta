@@ -79,4 +79,4 @@ check_result $? "Bind restart failed" >/dev/null
 log_history "deleted dns domain $domain"
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

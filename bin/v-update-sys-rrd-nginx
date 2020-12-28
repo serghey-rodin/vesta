@@ -92,4 +92,4 @@ if [ "$result" -ne 0 ]; then
     exit $E_RRD
 fi
 
-exit
+run_hook $@

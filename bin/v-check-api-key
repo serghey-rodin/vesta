@@ -13,6 +13,11 @@ if [ -z "$1" ]; then
     echo "Error: key missmatch"
     exit 9
 fi
+
+# Includes
+source $VESTA/func/main.sh
+source $VESTA/conf/vesta.conf
+
 key=$(basename $1)
 ip=${2-127.0.0.1}
 time_n_date=$(date +'%T %F')
@@ -37,4 +42,4 @@ fi
 
 echo "$date $time api $ip successfully launched" >> $VESTA/log/auth.log
 
-exit
+run_hook $@

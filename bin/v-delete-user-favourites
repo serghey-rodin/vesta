@@ -123,4 +123,4 @@ chmod 640 $USER_DATA/favourites.conf
 log_history "deleted starred $object from $system listing"
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

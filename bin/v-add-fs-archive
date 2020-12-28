@@ -8,6 +8,10 @@ user=$1
 archive=$2
 src0=$3
 
+# Includes
+source $VESTA/func/main.sh
+source $VESTA/conf/vesta.conf
+
 # Checking arguments
 if [ -z "$src0" ]; then
     echo "Usage: USER ARCHIVE FILE [FILE_2] [FILE_3] [FILE ...]"
@@ -73,4 +77,4 @@ if [[ "$archive" =~ \.gz$ ]]; then
     fi
 fi
 
-exit
+run_hook $@

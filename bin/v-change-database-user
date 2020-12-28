@@ -88,4 +88,4 @@ fi
 log_history "changed $database database user to $dbuser"
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

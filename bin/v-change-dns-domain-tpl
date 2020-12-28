@@ -128,4 +128,4 @@ check_result $? "DNS restart failed" >/dev/null
 log_history "changed dns template for $domain to $template" '' 'admin'
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

@@ -83,4 +83,4 @@ check_result $? "DNS restart failed" >/dev/null
 log_history "changed dns ip for $domain to $ip"
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

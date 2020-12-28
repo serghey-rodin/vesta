@@ -53,4 +53,4 @@ esac
 log_history "changed $type template to $template"
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

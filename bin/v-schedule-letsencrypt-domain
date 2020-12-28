@@ -59,4 +59,4 @@ echo "$BIN/v-add-letsencrypt-domain $user $domain '$aliases' yes yes" \
 # Logging
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

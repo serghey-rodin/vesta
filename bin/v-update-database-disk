@@ -57,4 +57,4 @@ recalc_user_disk_usage
 # Logging
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

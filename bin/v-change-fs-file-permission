@@ -8,6 +8,10 @@ user=$1
 src_file=$2
 permissions=$3
 
+# Includes
+source $VESTA/func/main.sh
+source $VESTA/conf/vesta.conf
+
 # Checking arguments
 if [ -z "$permissions" ]; then
     echo "Usage: USER FILE PERMISSIONS"
@@ -48,4 +52,4 @@ if [ $? -ne 0 ]; then
 fi
 
 # Exiting
-exit
+run_hook $@

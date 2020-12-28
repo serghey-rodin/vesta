@@ -46,4 +46,4 @@ echo "$BIN/v-backup-user $user yes >> $log 2>&1" >>\
 # Logging
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

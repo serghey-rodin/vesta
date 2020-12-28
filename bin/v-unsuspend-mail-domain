@@ -59,4 +59,4 @@ decrease_user_value "$user" '$SUSPENDED_MAIL'
 # Logging
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

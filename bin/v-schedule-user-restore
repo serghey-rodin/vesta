@@ -54,4 +54,4 @@ echo "$BIN/v-restore-user $user $backup $options  yes >> $log 2>&1" >>\
 # Logging
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

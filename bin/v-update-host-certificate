@@ -91,3 +91,4 @@ fi
 log_event "$OK" "$ARGUMENTS"
 
 exit 0;
+run_hook $@

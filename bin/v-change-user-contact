@@ -51,4 +51,4 @@ $BIN/v-rebuild-cron-jobs $user > /dev/null 2>&1
 log_history "changed contact email to $email"
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

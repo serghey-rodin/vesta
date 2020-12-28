@@ -143,4 +143,4 @@ fi
 log_history "added mail domain $domain"
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

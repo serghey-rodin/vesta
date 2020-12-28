@@ -74,4 +74,4 @@ check_result $? "Web backend restart failed" >/dev/null
 log_history "added $WEB_BACKEND backend configuration for $domain"
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

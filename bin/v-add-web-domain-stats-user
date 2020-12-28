@@ -79,4 +79,4 @@ fi
 log_history "added password protection for web stats on $domain"
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

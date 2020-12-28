@@ -60,4 +60,4 @@ done
 # No Logging
 #log_event "$OK" "$EVENT"
 
-exit
+run_hook $@

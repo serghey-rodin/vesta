@@ -78,4 +78,4 @@ check_result $? "Backend restart failed" >/dev/null
 log_history "deleting backend support for $domain"
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

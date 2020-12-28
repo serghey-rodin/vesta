@@ -64,4 +64,4 @@ increase_user_value "$user" '$SUSPENDED_DNS'
 # Logging
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

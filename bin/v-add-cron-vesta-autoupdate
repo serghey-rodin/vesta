@@ -79,4 +79,4 @@ check_result $? "Cron restart failed" >/dev/null
 log_history "added cron job $job"
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

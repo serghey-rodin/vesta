@@ -77,4 +77,4 @@ check_result $? "DNS restart failed" >/dev/null
 log_history "changed soa record for $domain to $soa"
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

@@ -95,4 +95,4 @@ chmod 660 $chains
 # Logging
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

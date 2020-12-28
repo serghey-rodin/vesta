@@ -82,4 +82,4 @@ check_result $? "DNS restart failed" >/dev/null
 log_history "changed dns record id on $domain"
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

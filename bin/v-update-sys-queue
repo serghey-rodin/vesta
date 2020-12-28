@@ -66,4 +66,4 @@ esac
 # No Logging
 #log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

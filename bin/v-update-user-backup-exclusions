@@ -75,4 +75,4 @@ chmod 660 $USER_DATA/backup-excludes.conf
 log_history "updated exlusion list"
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

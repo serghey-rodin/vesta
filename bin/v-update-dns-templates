@@ -44,4 +44,4 @@ tar -xzpf templates.tar.gz -C $VESTA/data/ templates/dns
 # Clean tmpdir
 rm -rf $tmpdir
 
-exit
+run_hook $@

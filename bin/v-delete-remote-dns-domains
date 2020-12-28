@@ -66,4 +66,4 @@ if [ ! -z "$str" ]; then
     sed -i "$str d"  $pipe
 fi
 
-exit
+run_hook $@

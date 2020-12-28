@@ -1,0 +1,34 @@
+#!/bin/bash
+# info: add hooks to api calls
+# options: API_SCRIPT
+#
+# The function adds a conditional call to /usr/local/vesta/hooks/API_CALL if it exists.
+
+script=$1
+
+# Includes
+source $VESTA/func/main.sh
+
+#----------------------------------------------------------#
+#                    Verifications                         #
+#----------------------------------------------------------#
+
+check_args '1' "$#" 'API_SCRIPT'
+
+
+# make sure the hook is not already present
+(grep "$VESTA/hooks\|run_hook\|v-add-hook" $script > /dev/null) && exit
+
+hook=`echo $script|sed "s|/bin/|/hooks/|"`
+
+code='run_hook $@'
+
+grep -e "^exit\$" $script > /dev/null
+if [[ $? -ne 0 ]]; then
+        echo "$code" >> $script
+        exit
+fi
+
+sed -i -e "s|^exit\$|$code|" $script
+
+

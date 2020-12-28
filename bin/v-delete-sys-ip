@@ -146,4 +146,4 @@ fi
 log_history "deleted system ip address $ip"
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

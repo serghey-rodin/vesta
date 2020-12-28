@@ -156,4 +156,4 @@ check_result $? "Web backend restart failed" >/dev/null
 log_history "changed backend template for $domain to $template"
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

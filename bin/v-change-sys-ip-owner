@@ -78,4 +78,4 @@ fi
 log_history "changed owner of $ip to $user" '' 'admin'
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

@@ -191,4 +191,4 @@ fi
 log_history "added system ip address $ip" '' 'admin'
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@

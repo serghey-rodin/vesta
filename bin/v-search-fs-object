@@ -8,6 +8,10 @@ user=$1
 object=$2
 path=$3
 
+# Includes
+source $VESTA/func/main.sh
+source $VESTA/conf/vesta.conf
+
 # Checking arguments
 if [ -z "$object" ]; then
     echo "Usage: USER OBJECT [PATH]"
@@ -45,3 +49,4 @@ sudo -u $user find "$path" -name "$object" \
 
 # Exiting
 exit $?
+run_hook $@

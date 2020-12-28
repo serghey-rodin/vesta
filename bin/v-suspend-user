@@ -90,4 +90,4 @@ increase_user_value 'admin' '$SUSPENDED_USERS'
 # Logging
 log_event "$OK" "$ARGUMENTS"
 
-exit
+run_hook $@
