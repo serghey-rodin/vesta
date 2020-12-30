@@ -208,7 +208,7 @@ for auth in $authz; do
         fi
 
         i=$((i + 1))
-        if [ "$i" -gt 10 ]; then
+        if [ "$i" -gt 20 ]; then
             check_result $E_CONNECT "Let's Encrypt domain validation timeout"
         fi
         sleep $((i*2))
