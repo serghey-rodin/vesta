@@ -140,7 +140,7 @@ fi
 for auth in $authz; do
     payload=''
     answer=$(query_le_v2 "$auth" "$payload" "$nonce")
-    url=$(echo "$answer" |grep -A3 $proto |grep url |cut -f 4 -d \")
+    url=$(echo "$answer" |grep -A3 $proto |grep "https://" |cut -f 4 -d \")
     token=$(echo "$answer" |grep -A3 $proto |grep token |cut -f 4 -d \")
     nonce=$(echo "$answer" |grep -i nonce |cut -f2 -d \ |tr -d '\r\n')
     status=$(echo "$answer"|grep HTTP/ |tail -n1 |cut -f 2 -d ' ')
