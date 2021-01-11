@@ -534,6 +534,11 @@ if [ "$release" = '16.04' ] && [ -e '/etc/init.d/mysql' ]; then
     chown mysql:mysql /var/lib/mysql
     mysqld --initialize-insecure
 fi
+if [ "$release" = '18.04' ] && [ -e '/etc/init.d/mysql' ]; then
+    mkdir -p /var/lib/mysql > /dev/null 2>&1
+    chown mysql:mysql /var/lib/mysql
+    mysqld --initialize-insecure
+fi
 
 # Backup Vesta
 service vesta stop > /dev/null 2>&1
