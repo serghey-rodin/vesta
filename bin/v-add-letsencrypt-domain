@@ -23,11 +23,14 @@ source $VESTA/func/domain.sh
 source $VESTA/conf/vesta.conf
 
 # Additional argument formatting
-format_identifier_idn() {
-    identifier_idn=$identifier
-    if [[ "$identifier_idn" = *[![:ascii:]]* ]]; then
-        identifier_idn=$(idn -t --quiet -a $identifier_idn)
-    fi
+format_idn() {
+    if [[ -z "$2" ]]; then return 1; fi
+    case "$1" in
+        d | direct )  idn_args="--idna-to-ascii" ;;
+        r | reverse ) idn_args="--idna-to-unicode" ;;
+        * ) return 1 ;; # incorrect $1
+    esac
+    echo "$(idn --quiet $idn_args "$2")"
 }
 
 # encode base64
@@ -73,10 +76,77 @@ is_object_unsuspended 'user' 'USER' "$user"
 is_object_valid 'web' 'DOMAIN' "$domain"
 is_object_unsuspended 'web' 'DOMAIN' "$domain"
 get_domain_values 'web'
+
+#------------------------------------------------------------#
+# Example situation that is being worked around:
+# IDN domain думалогия.рф has an only alias www.думалогия.рф.
+# Both domain and its aliases are not punycode-encoded,
+# that's OK. But they are in punycode in Let's encrypt
+# certificates. So we have to do so that the check that the
+# domain alias exists does not fail due to that
+# 'думалогия.рф' != 'xn--80agbsneq0b4h.xn--p1ai'.
+#------------------------------------------------------------#
+domain_enc_direct="$(format_idn direct "$domain")"
+domain_enc_reverse="$(format_idn reverse "$domain")"
+# If it is an IDN domain, start hacking...
+if [ "$domain_enc_direct" != "$domain_enc_reverse" ]
+    then
+        domain_encoded="$domain_enc_direct"
+        ###
+        # Example:
+        # before: ALIAS=www.думалогия.рф
+        # after: ALIAS_IDN=www.xn--80agbsneq0b4h.xn--p1ai,www.думалогия.рф
+        count=0
+        ALIAS_IDN="" #empty
+        for i in $(echo "$ALIAS" |tr ',' '\n' |sort -u)
+        do
+            if [[ "$count" -le 0 ]]
+                then deli="" #empty
+                else deli=","
+            fi
+            i_direct="$(format_idn direct "$i")"
+            i_reversed="$(format_idn reverse "$i")"
+            ALIAS_IDN="${ALIAS_IDN}${deli}${i_direct},${i_reversed}"
+            count=$((++count))
+        done
+        unset count deli i_direct i_reversed
+        ###
+        # Example:
+        # before: aliases=aliases=www.xn--80agbsneq0b4h.xn--p1ai,xn--80agbsneq0b4h.xn--p1ai
+        # after: aliases_idn=www.xn--80agbsneq0b4h.xn--p1ai,www.думалогия.рф,xn--80agbsneq0b4h.xn--p1ai,думалогия.рф
+        count=0
+        aliases_idn="" #empty
+        for i in $(echo "$aliases" |tr ',' '\n' |sort -u)
+        do
+            if [[ "$count" -le 0 ]]
+                then deli="" #empty
+                else deli=","
+            fi
+            i_direct="$(format_idn direct "$i")"
+            i_reversed="$(format_idn reverse "$i")"
+            aliases_idn="${aliases_idn}${deli}${i_direct},${i_reversed}"
+            count=$((++count))
+        done
+        unset count deli i_direct i_reversed
+        ###
+        # Example:
+        # before: ALIAS_IDN=www.xn--80agbsneq0b4h.xn--p1ai,www.думалогия.рф
+        # after: ALIAS_IDN=www.xn--80agbsneq0b4h.xn--p1ai,www.думалогия.рф,xn--80agbsneq0b4h.xn--p1ai,думалогия.рф
+        for i in "$domain_enc_direct" "$domain_enc_reverse"
+        do
+            if ! echo "$ALIAS_IDN" | tr ',' '\n' | sort -u | grep -q "^${i}$"; then
+                ALIAS_IDN="${ALIAS_IDN},${i}"
+            fi
+        done
+    else
+        ALIAS_IDN="$ALIAS"
+        aliases_idn="$aliases"
+        domain_encoded="$domain"
+fi
 # check if alias is the letsencrypt wildcard domain, if not, make the normal checks
 if [[ "$aliases" != "*.$domain" ]]; then
-    for alias in $(echo "$aliases" |tr ',' '\n' |sort -u); do
-        check_alias="$(echo $ALIAS |tr ',' '\n' |grep ^$alias$)"
+    for alias in $(echo "$aliases_idn" |tr ',' '\n' |sort -u); do
+        check_alias="$(echo $ALIAS_IDN |tr ',' '\n' |grep ^$alias$)"
         if [ -z "$check_alias" ]; then
             check_result $E_NOTEXIST "domain alias $alias doesn't exist"
         fi
@@ -122,7 +192,7 @@ fi
 url="$API/acme/new-order"
 payload='{"identifiers":['
 for identifier in $(echo $domain,$aliases |tr ',' '\n' |sort -u); do
-    format_identifier_idn
+    identifier_idn="$(format_idn direct "$identifier")"
     payload=$payload'{"type":"dns","value":"'$identifier_idn'"},'
 done
 payload=$(echo "$payload"|sed "s/,$//")
