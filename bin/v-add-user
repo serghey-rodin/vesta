@@ -47,6 +47,9 @@ is_package_valid
 #                       Action                             #
 #----------------------------------------------------------#
 
+# create secure group if not exist. Users in the group can not access to alien home directories.
+grep -q "^vstsecure:" /etc/group || groupadd --system vstsecure
+
 # Parsing package data
 pkg_data=$(cat $VESTA/data/packages/$package.pkg |egrep -v "TIME|DATE")
 
@@ -55,7 +58,7 @@ shell_conf=$(echo "$pkg_data" | grep 'SHELL' | cut -f 2 -d \')
 shell=$(grep -w "$shell_conf" /etc/shells |head -n1)
 
 # Adding user
-/usr/sbin/useradd "$user" -s "$shell" -c "$email" -m -d "$HOMEDIR/$user"
+/usr/sbin/useradd "$user" -s "$shell" -c "$email" -G vstsecure -m -d "$HOMEDIR/$user"
 check_result $? "user creation failed" $E_INVALID
 
 # Adding password
@@ -83,7 +86,8 @@ if [ ! -z "$DNS_SYSTEM" ]; then
 fi 
 
 # Set permissions
-chmod a+x $HOMEDIR/$user
+chgrp vstsecure $HOMEDIR/$user
+chmod a+x,g-rwx $HOMEDIR/$user
 chattr +i $HOMEDIR/$user/conf
 
 
