@@ -338,7 +338,7 @@ fi
 
 # Database stack
 if [ "$mysql" = 'yes' ]; then
-    if [ $release -ge 7 ]; then
+    if [ $release -ge '7' ]; then
         echo '   - MariaDB Database Server'
     else
         echo '   - MySQL Database Server'
@@ -875,7 +875,7 @@ if [ "$nginx" = 'yes' ]; then
     cp -f $vestacp/logrotate/nginx /etc/logrotate.d/
     echo > /etc/nginx/conf.d/vesta.conf
     mkdir -p /var/log/nginx/domains
-    if [ "$release" -ge 7 ]; then
+    if [ "$release" -ge '7' ]; then
         mkdir -p /etc/systemd/system/nginx.service.d
         cd /etc/systemd/system/nginx.service.d
         echo "[Service]" > limits.conf
@@ -920,7 +920,7 @@ if [ "$apache" = 'yes'  ]; then
     chmod a+x /var/log/httpd
     mkdir -p /var/log/httpd/domains
     chmod 751 /var/log/httpd/domains
-    if [ "$release" -ge 7 ]; then
+    if [ "$release" -ge '7' ]; then
         mkdir -p /etc/systemd/system/httpd.service.d
         cd /etc/systemd/system/httpd.service.d
         echo "[Service]" > limits.conf
