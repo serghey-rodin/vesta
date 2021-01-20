@@ -204,7 +204,16 @@ add_mysql_database() {
 
     query="CREATE DATABASE \`$database\` CHARACTER SET $charset"
     mysql_query "$query" > /dev/null
-
+# This can be modified for mysql 5.7 for better compatibility
+   if [ "$(echo $mysql_ver |cut -d '.' -f1)" -eq 8 ]; then
+        query="CREATE USER IF NOT EXISTS '$dbuser'@'localhost' IDENTIFIED BY '$dbpass';"
+        mysql_query "$query" > /dev/null
+        query="CREATE USER IF NOT EXISTS '$dbuser'@'%' IDENTIFIED BY '$dbpass';"
+        mysql_query "$query" > /dev/null
+        query="GRANT ALL ON \`$database\`.* TO \`$dbuser\`@\`%\`"
+        query="GRANT ALL ON \`$database\`.* TO \`$dbuser\`@localhost"
+        mysql_query "$query" > /dev/null
+    else
     query="GRANT ALL ON \`$database\`.* TO \`$dbuser\`@\`%\`
         IDENTIFIED BY '$dbpass'"
     mysql_query "$query" > /dev/null
@@ -212,8 +221,10 @@ add_mysql_database() {
     query="GRANT ALL ON \`$database\`.* TO \`$dbuser\`@localhost
         IDENTIFIED BY '$dbpass'"
     mysql_query "$query" > /dev/null
-
-    if [ "$(echo $mysql_ver |cut -d '.' -f2)" -ge 7 ]; then
+    fi  
+    # for mysql 8 this will work only if  mysql_native_password is enabled
+    # Not think yet how to add compatibility for new cached SHA-256 password system
+     if [ "$(echo $mysql_ver |cut -d '.' -f2)" -ge 7 ] || [ "$(echo $mysql_ver |cut -d '.' -f1)" -eq 8 ]; then
         md5=$(mysql_query "SHOW CREATE USER \`$dbuser\`" 2>/dev/null)
         md5=$(echo "$md5" |grep password |cut -f8 -d \')
     else
