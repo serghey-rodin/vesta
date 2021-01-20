@@ -553,7 +553,7 @@ if [ "$release" != "15.04" ] && [ "$release" != "15.04" ]; then
 fi
 
 if [ "$nginx" = 'no'  ]; then
-    software=$(echo "$software" | sed -e "s/^nginx//")
+    software=$(echo "$software" | sed -e "s/ nginx/ /")
 fi
 if [ "$apache" = 'no' ]; then
     software=$(echo "$software" | sed -e "s/apache2 //")
