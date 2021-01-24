@@ -601,6 +601,9 @@ if [ "$exim" = 'no' ]; then
     software=$(echo "$software" | sed -e "s/dovecot-pop3d//")
     software=$(echo "$software" | sed -e "s/clamav-daemon//")
     software=$(echo "$software" | sed -e "s/spamassassin//")
+    software=$(echo "$software" | sed -e 's/roundcube-core//')
+    software=$(echo "$software" | sed -e 's/roundcube-mysql//')
+    software=$(echo "$software" | sed -e 's/roundcube-plugins//')
 fi
 if [ "$clamd" = 'no' ]; then
     software=$(echo "$software" | sed -e "s/clamav-daemon//")
@@ -619,7 +622,7 @@ if [ "$mysql" = 'no' ]; then
     software=$(echo "$software" | sed -e 's/mysql-common//')
     software=$(echo "$software" | sed -e 's/php5-mysql//')
     software=$(echo "$software" | sed -e 's/php-mysql//')
-    software=$(echo "$software" | sed -e 's/phpMyAdmin//')
+    software=$(echo "$software" | sed -e 's/php[Mm]y[Aa]dmin//')
 fi
 if [ "$postgresql" = 'no' ]; then
     software=$(echo "$software" | sed -e 's/postgresql-contrib//')
@@ -633,6 +636,24 @@ if [ "$softaculous" = 'no' ]; then
 fi
 if [ "$iptables" = 'no' ] || [ "$fail2ban" = 'no' ]; then
     software=$(echo "$software" | sed -e 's/fail2ban//')
+fi
+if [ "$apache" = 'no' ] && [ "$phpfpm" = 'no' ]; then
+    software=$(echo "$software" | sed -e 's/php5 //')
+    software=$(echo "$software" | sed -e 's/php //')
+    software=$(echo "$software" | sed -e 's/php-common//')
+    software=$(echo "$software" | sed -e 's/php5-common//')
+    software=$(echo "$software" | sed -e 's/php-cgi//')
+    software=$(echo "$software" | sed -e 's/php5-cgi//')
+    software=$(echo "$software" | sed -e 's/php5-curl//')
+    software=$(echo "$software" | sed -e 's/php-curl//')
+    software=$(echo "$software" | sed -e 's/php5-mysql//')
+    software=$(echo "$software" | sed -e 's/php-mysql//')
+    software=$(echo "$software" | sed -e 's/php[Mm]y[Aa]dmin//')
+    software=$(echo "$software" | sed -e 's/roundcube-core//')
+    software=$(echo "$software" | sed -e 's/roundcube-mysql//')
+    software=$(echo "$software" | sed -e 's/roundcube-plugins//')
+    software=$(echo "$software" | sed -e 's/awstats//')
+    software=$(echo "$software" | sed -e 's/webalizer//')
 fi
 
 
