@@ -14,6 +14,7 @@ user=$1
 domain=$2
 template=${3-default}
 restart=$4
+docroot="$HOMEDIR/$user/web/$domain/public_html"
 
 # Includes
 source $VESTA/func/main.sh
@@ -59,6 +60,7 @@ cat $WEBTPL/$WEB_BACKEND/$template.tpl |\
     sed -e "s|%backend_port%|$backend_port|" \
         -e "s|%user%|$user|g"\
         -e "s|%domain%|$domain|g"\
+        -e "s|%docroot%|$docroot|g"\
         -e "s|%backend%|$backend_type|g" > $pool/$backend_type.conf
 
 
