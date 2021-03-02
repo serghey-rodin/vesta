@@ -92,6 +92,16 @@
                                 <td>
                                     <input type="text" size="20" class="vst-input" name="v_ip" value="<?=htmlentities(trim($v_ip, "'"))?>">
                                 </td>
+                            </tr>                            
+                            <tr>
+                                <td class="vst-text input-label">
+                                    <?php print __('Destination IP address');?> <span class="optional">(<?php print __('optional, CIDR format is supported');?>)</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="text" size="20" class="vst-input" name="v_dest" value="<?=htmlentities(trim($v_dest, "'"))?>">
+                                </td>
                             </tr>
                             <tr>
                                 <td class="vst-text input-label">

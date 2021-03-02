@@ -31,6 +31,7 @@ $v_action = $data[$v_rule]['ACTION'];
 $v_protocol = $data[$v_rule]['PROTOCOL'];
 $v_port = $data[$v_rule]['PORT'];
 $v_ip = $data[$v_rule]['IP'];
+$v_dest = $data[$v_rule]['DEST'];
 $v_comment = $data[$v_rule]['COMMENT'];
 $v_date = $data[$v_rule]['DATE'];
 $v_time = $data[$v_rule]['TIME'];
@@ -58,10 +59,11 @@ if (!empty($_POST['save'])) {
     $v_port = trim($v_port, ",");
     $v_port = escapeshellarg($v_port);
     $v_ip = escapeshellarg($_POST['v_ip']);
+    $v_dest = escapeshellarg($_POST['v_dest']);    
     $v_comment = escapeshellarg($_POST['v_comment']);
 
     // Change Status
-    exec (VESTA_CMD."v-change-firewall-rule ".$v_rule." ".$v_action." ".$v_ip."  ".$v_port." ".$v_protocol." ".$v_comment, $output, $return_var);
+    exec (VESTA_CMD."v-change-firewall-rule ".$v_rule." ".$v_action." ".$v_ip."  ".$v_port." ".$v_protocol." ".$v_comment." ".$v_dest, $output, $return_var);
     check_return_code($return_var,$output);
     unset($output);
 

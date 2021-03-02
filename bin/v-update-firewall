@@ -83,6 +83,14 @@ for line in $(sort -r -n -k 2 -t \' $rules); do
         state=""
         action="-j $ACTION"
 
+	# Destination IP support
+	if [ -n "$DEST" ]; then 
+	    dest="-d $DEST"
+	else
+	    unset dest
+	fi
+        unset DEST
+
         # Adding multiport module
         if [[ "$PORT" =~ ,|-|: ]] ; then
             port="-m multiport --dports ${PORT//-/:}"
@@ -104,7 +112,7 @@ for line in $(sort -r -n -k 2 -t \' $rules); do
         fi
 
         # Adding firewall rule
-        echo "$iptables -A INPUT $proto $port $ip $state $action" >> $tmp
+        echo "$iptables -A INPUT $dest $proto $port $ip $state $action" >> $tmp
     fi
 done
 

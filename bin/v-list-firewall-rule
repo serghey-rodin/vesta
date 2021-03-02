@@ -23,6 +23,7 @@ json_list() {
         "PROTOCOL": "'$PROTOCOL'",
         "PORT": "'$PORT'",
         "IP": "'$IP'",
+        "DEST": "'$DEST'",
         "COMMENT": "'$COMMENT'",
         "SUSPENDED": "'$SUSPENDED'",
         "TIME": "'$TIME'",
@@ -37,6 +38,7 @@ shell_list() {
     echo "PROTOCOL:       $PROTOCOL"
     echo "PORT:           $PORT"
     echo "IP:             $IP"
+    echo "DEST:           $DEST"    
     echo "COMMENT:        $COMMENT"
     echo "SUSPENDED:      $SUSPENDED"
     echo "TIME:           $TIME"
@@ -45,14 +47,14 @@ shell_list() {
 
 # PLAIN list function
 plain_list() {
-    echo -ne "$RULE\t$ACTION\t$PROTOCOL\t$PORT\t$IP\t$COMMENT\t"
+    echo -ne "$RULE\t$ACTION\t$PROTOCOL\t$PORT\t$IP\t$DEST\t$COMMENT\t"
     echo -e "$SUSPENDED\t$TIME\t$DATE"
 }
 
 # CSV list function
 csv_list() {
-    echo "RULE,ACTION,PROTOCOL,PORT,IP,COMMENT,SUSPENDED,TIME,DATE"
-    echo "$RULE,$ACTION,$PROTOCOL,$PORT,$IP,$COMMENT,$SUSPENDED,$TIME,$DATE"
+    echo "RULE,ACTION,PROTOCOL,PORT,IP,DEST,COMMENT,SUSPENDED,TIME,DATE"
+    echo "$RULE,$ACTION,$PROTOCOL,$PORT,$IP,$DEST,$COMMENT,$SUSPENDED,$TIME,$DATE"
 }
 
 

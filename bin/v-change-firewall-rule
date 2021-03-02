@@ -21,6 +21,7 @@ port_ext=$4
 protocol=${5-TCP}
 protocol=$(echo $protocol|tr '[:lower:]' '[:upper:]')
 comment=$6
+dest=$7
 
 # Includes
 source $VESTA/func/main.sh
@@ -39,8 +40,8 @@ sort_fw_rules() {
 #                    Verifications                         #
 #----------------------------------------------------------#
 
-check_args '5' "$#" 'RULE ACTION IP  PORT [PROTOCOL] [COMMENT]'
-is_format_valid 'rule' 'action' 'protocol' 'port_ext' 'ip'
+check_args '5' "$#" 'RULE ACTION IP DEST  PORT [PROTOCOL] [COMMENT]'
+is_format_valid 'rule' 'action' 'protocol' 'port_ext' 'ip' 'dest'
 if [ ! -z "$comment" ]; then
     is_format_valid 'comment'
 fi
@@ -59,7 +60,7 @@ date=$(echo "$time_n_date" |cut -f 2 -d \ )
 
 # Concatenating firewall rule
 str="RULE='$rule' ACTION='$action' PROTOCOL='$protocol' PORT='$port_ext'"
-str="$str IP='$ip' COMMENT='$comment' SUSPENDED='no'"
+str="$str IP='$ip' DEST='$dest' COMMENT='$comment' SUSPENDED='no'"
 str="$str TIME='$time' DATE='$date'"
 
 # Deleting old rule
