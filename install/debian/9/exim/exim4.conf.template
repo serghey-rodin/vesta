@@ -164,7 +164,7 @@ acl_check_data:
 
 acl_check_mime:
   deny   message        = Blacklisted file extension detected
-         condition      = ${if match {${lc:$mime_filename}}{\N(\.ade|\.adp|\.bat|\.chm|\.cmd|\.com|\.cpl|\.exe|\.hta|\.ins|\.isp|\.jse|\.lib|\.lnk|\.mde|\.msc|\.msp|\.mst|\.pif|\.scr|\.sct|\.shb|\.sys|\.vb|\.vbe|\.vbs|\.vxd|\.wsc|\.wsf|\.wsh)$\N}{1}{0}}
+         condition      = ${if match {${lc:$mime_filename}}{\N(\.ade|\.adp|\.bat|\.chm|\.cmd|\.com|\.cpl|\.exe|\.hta|\.ins|\.isp|\.jse|\.lib|\.lnk|\.mde|\.msc|\.msp|\.mst|\.pif|\.scr|\.sct|\.shb|\.sys|\.vb|\.vbe|\.vbs|\.vxd|\.wsc|\.wsf|\.wsh|\.jar)$\N}{1}{0}}
 
   accept
 
