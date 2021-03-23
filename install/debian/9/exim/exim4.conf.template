@@ -9,12 +9,10 @@
 #CLAMD =  yes
 
 disable_ipv6=true
-add_environment=<; PATH=/bin:/usr/bin
-keep_environment=
 
 domainlist local_domains = dsearch;/etc/exim4/domains/
 domainlist relay_to_domains = dsearch;/etc/exim4/domains/
-hostlist relay_from_hosts = 127.0.0.1
+hostlist relay_from_hosts = localhost
 hostlist whitelist = net-iplsearch;/etc/exim4/white-blocks.conf
 hostlist spammers = net-iplsearch;/etc/exim4/spam-blocks.conf
 no_local_from_check
@@ -41,10 +39,11 @@ daemon_smtp_ports = 25 : 465 : 587 : 2525
 tls_on_connect_ports = 465
 never_users = root
 host_lookup = *
-rfc1413_hosts = *
-rfc1413_query_timeout = 5s
+prdr_enable = true
 ignore_bounce_errors_after = 2d
 timeout_frozen_after = 7d
+keep_environment = ^LDAP
+add_environment = PATH=/usr/bin::/bin
 
 DKIM_DOMAIN = ${lc:${domain:$h_from:}}
 DKIM_FILE = /etc/exim4/domains/${lc:${domain:$h_from:}}/dkim.pem
@@ -207,6 +206,7 @@ dnslookup:
   driver = dnslookup
   domains = !+local_domains
   transport = remote_smtp
+  ignore_target_hosts = 0.0.0.0 : 127.0.0.0/8
   no_more
 
 userforward:
