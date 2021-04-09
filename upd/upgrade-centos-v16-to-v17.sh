@@ -56,10 +56,8 @@ fi
 if [ -f "/etc/mail/spamassassin/local.cf" ] ; then
     if [ ! -d "/var/lib/spamassassin" ] ; then
         if [ "$release" -eq '7' ]; then
-            groupadd -g 1001 spamd
-            useradd -u 1001 -g spamd -s /sbin/nologin -d \
-                /var/lib/spamassassin spamd
-            mkdir /var/lib/spamassassin
+            useradd spamd -s /sbin/nologin -d /var/lib/spamassassin 2>/dev/null
+            mkdir -p /var/lib/spamassassin
             chown spamd:spamd /var/lib/spamassassin
         fi
     fi
