@@ -544,7 +544,7 @@ rebuild_mysql_database() {
     mysql_query "CREATE DATABASE \`$DB\` CHARACTER SET $CHARSET" >/dev/null
     if [ "$mysql_fork" = "mysql" ]; then
         # mysql
-        if [ "$(echo $mysql_ver |cut -d '.' -f2)" -ge 7 ]; then
+        if [ "$(echo $mysql_ver |cut -d '.' -f2)" -ge 7 ] || [ "$(echo $mysql_ver |cut -d '.' -f1)" -eq 8 ]; then
             # mysql >= 5.7
             mysql_query "CREATE USER IF NOT EXISTS \`$DBUSER\`" > /dev/null
             mysql_query "CREATE USER IF NOT EXISTS \`$DBUSER\`@localhost" > /dev/null
