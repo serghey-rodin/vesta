@@ -260,6 +260,18 @@ check_result $? "No access to Vesta repository"
 # Checking installed packages
 tmpfile=$(mktemp -p /tmp)
 dpkg --get-selections > $tmpfile
+# Checking gnupg (fix for latest Ubuntu vestions)
+for pkg in gnupg gnupg1 gnupg2; do
+    if [ ! -z "$(grep '$pkg' $tmpfile)" ]; then
+        gnupg_exist=true
+        break
+    fi
+done
+if [ -z "$gnupg_exist" ]; then
+    apt-get -y install gnupg
+    check_result $? "apt-get install failed"
+fi
+# Checking conflicts
 for pkg in exim4 mysql-server apache2 nginx vesta; do
     if [ ! -z "$(grep $pkg $tmpfile)" ]; then
         conflicts="$pkg $conflicts"
