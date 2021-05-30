@@ -216,6 +216,7 @@ get_user_ip() {
     if [ ! -z "$nat" ]; then
         ip=$nat
     fi
+    grep -q "^vagrant" /etc/passwd && [ `hostname -I | wc -w` -gt 1 ] && ip=`hostname -I | cut -f 2 -d " "`
 }
 
 # Validate ip address
