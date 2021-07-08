@@ -41,26 +41,28 @@ fi
 # Defining help function
 help() {
     echo "Usage: $0 [OPTIONS]
-  -a, --apache            Install Apache        [yes|no]  default: yes
-  -n, --nginx             Install Nginx         [yes|no]  default: yes
-  -w, --phpfpm            Install PHP-FPM       [yes|no]  default: no
-  -v, --vsftpd            Install Vsftpd        [yes|no]  default: yes
-  -j, --proftpd           Install ProFTPD       [yes|no]  default: no
-  -k, --named             Install Bind          [yes|no]  default: yes
-  -m, --mysql             Install MySQL         [yes|no]  default: yes
-  -g, --postgresql        Install PostgreSQL    [yes|no]  default: no
-  -d, --mongodb           Install MongoDB       [yes|no]  unsupported
-  -x, --exim              Install Exim          [yes|no]  default: yes
-  -z, --dovecot           Install Dovecot       [yes|no]  default: yes
-  -c, --clamav            Install ClamAV        [yes|no]  default: yes
-  -t, --spamassassin      Install SpamAssassin  [yes|no]  default: yes
-  -i, --iptables          Install Iptables      [yes|no]  default: yes
-  -b, --fail2ban          Install Fail2ban      [yes|no]  default: yes
-  -o, --softaculous       Install Softaculous   [yes|no]  default: yes
-  -q, --quota             Filesystem Quota      [yes|no]  default: no
+  -a, --apache            Install Apache           [yes|no]  default: yes
+  -n, --nginx             Install Nginx            [yes|no]  default: yes
+  -w, --phpfpm            Install PHP-FPM          [yes|no]  default: no
+  -v, --vsftpd            Install Vsftpd           [yes|no]  default: yes
+  -j, --proftpd           Install ProFTPD          [yes|no]  default: no
+  -k, --named             Install Bind             [yes|no]  default: yes
+  -m, --mysql             Install MySQL            [yes|no]  default: yes
+  -g, --postgresql        Install PostgreSQL       [yes|no]  default: no
+  -d, --mongodb           Install MongoDB          [yes|no]  unsupported
+  -x, --exim              Install Exim             [yes|no]  default: yes
+  -z, --dovecot           Install Dovecot          [yes|no]  default: yes
+  -c, --clamav            Install ClamAV           [yes|no]  default: yes
+  -t, --spamassassin      Install SpamAssassin     [yes|no]  default: yes
+  -i, --iptables          Install Iptables         [yes|no]  default: yes
+  -b, --fail2ban          Install Fail2ban         [yes|no]  default: yes
+  -r, --remi              Install Remi repo        [yes|no]  default: yes
+  -o, --softaculous       Install Softaculous      [yes|no]  default: yes
+  -q, --quota             Filesystem Quota         [yes|no]  default: no
   -l, --lang              Default language                default: en
-  -y, --interactive       Interactive install   [yes|no]  default: yes
+  -y, --interactive       Interactive install      [yes|no]  default: yes
   -s, --hostname          Set hostname
+  -u, --ssl               Add LE SSL for hostname  [yes|no]  default: no
   -e, --email             Set admin email
   -p, --password          Set admin password
   -f, --force             Force installation
@@ -149,6 +151,7 @@ for arg; do
         --lang)                 args="${args}-l " ;;
         --interactive)          args="${args}-y " ;;
         --hostname)             args="${args}-s " ;;
+        --ssl)                  args="${args}-u " ;;
         --email)                args="${args}-e " ;;
         --password)             args="${args}-p " ;;
         --force)                args="${args}-f " ;;
@@ -160,7 +163,7 @@ done
 eval set -- "$args"
 
 # Parsing arguments
-while getopts "a:n:w:v:j:k:m:g:d:x:z:c:t:i:b:r:o:q:l:y:s:e:p:fh" Option; do
+while getopts "a:n:w:v:j:k:m:g:d:x:z:c:t:i:b:r:o:q:l:y:s:u:e:p:fh" Option; do
     case $Option in
         a) apache=$OPTARG ;;            # Apache
         n) nginx=$OPTARG ;;             # Nginx
@@ -183,6 +186,7 @@ while getopts "a:n:w:v:j:k:m:g:d:x:z:c:t:i:b:r:o:q:l:y:s:e:p:fh" Option; do
         l) lang=$OPTARG ;;              # Language
         y) interactive=$OPTARG ;;       # Interactive install
         s) servername=$OPTARG ;;        # Hostname
+        u) ssl=$OPTARG ;;               # Add Let's Encrypt SSL for hostname
         e) email=$OPTARG ;;             # Admin email
         p) vpass=$OPTARG ;;             # Admin password
         f) force='yes' ;;               # Force install
@@ -215,6 +219,7 @@ set_default_value 'fail2ban' 'yes'
 set_default_value 'softaculous' 'yes'
 set_default_value 'quota' 'no'
 set_default_value 'interactive' 'yes'
+set_default_value 'ssl' 'no'
 set_default_lang 'en'
 
 # Checking software conflicts
@@ -1331,6 +1336,13 @@ $VESTA/upd/add_notifications.sh
 
 # Adding cronjob for autoupdates
 $VESTA/bin/v-add-cron-vesta-autoupdate
+
+# Add Let's Encrypt SSL for hostname and enable auto-renew
+if [ "$ssl" = 'yes' ]; then
+    $VESTA/bin/v-add-letsencrypt-domain 'admin' $servername '' 'yes'
+    $VESTA/bin/v-update-host-certificate admin $servername
+    echo "UPDATE_HOSTNAME_SSL='yes'" >> $VESTA/conf/vesta.conf
+fi
 
 
 #----------------------------------------------------------#
