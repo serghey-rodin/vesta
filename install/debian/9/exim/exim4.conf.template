@@ -209,6 +209,11 @@ dnslookup:
   transport = remote_smtp
   no_more
 
+localuser_spam:
+  driver = accept
+  transport = local_spam_delivery
+  condition = ${if eq {${if match{$h_X-Spam-Status:}{\N^Yes\N}{yes}{no}}} {${lookup{$local_part}lsearch{/etc/exim4/domains/$domain/passwd}{yes}{no_such_user}}}}
+
 userforward:
   driver = redirect
   check_local_user
@@ -249,11 +254,6 @@ localuser_fwd_only:
   driver = accept
   transport = devnull
   condition = ${if exists{/etc/exim4/domains/$domain/fwd_only}{${lookup{$local_part}lsearch{/etc/exim4/domains/$domain/fwd_only}{true}{false}}}}
-
-localuser_spam:
-  driver = accept
-  transport = local_spam_delivery
-  condition = ${if eq {${if match{$h_X-Spam-Status:}{\N^Yes\N}{yes}{no}}} {${lookup{$local_part}lsearch{/etc/exim4/domains/$domain/passwd}{yes}{no_such_user}}}}
 
 localuser:
   driver = accept
